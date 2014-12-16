@@ -41,17 +41,17 @@ class App:
       Label(master, text="DISCOUNT(%) :").grid(row=1)
       Label(master, text="QUANTITY :").grid(row=2)
 
-      e1 = Entry(master)
-      e2 = Entry(master)
-      e3 = Entry(master)
+      entry1 = Entry(master)
+      entry2 = Entry(master)
+      entry3 = Entry(master)
 
-      self.e1 = e1
-      self.e2 = e2
-      self.e3 = e3
+      self.entry1 = entry1
+      self.entry2 = entry2
+      self.entry3 = entry3
 
-      e1.grid(row=0, column=1)
-      e2.grid(row=1, column=1)
-      e3.grid(row=2, column=1)
+      entry1.grid(row=0, column=1)
+      entry2.grid(row=1, column=1)
+      entry3.grid(row=2, column=1)
       
 
       Button(master, text='ADD', command=self.showResult).grid(row=3, column=0, sticky=W, pady=4)
@@ -60,9 +60,9 @@ class App:
 
    """ when click 'ADD'(Button)in ADD ORDER(window) this message box will show to alert some information """
    def showResult(self):
-      value = (float(self.e1.get()) -(float(self.e1.get()) * float(self.e2.get())/100.0)) * float(self.e3.get())
+      value = (float(self.entry1.get()) -(float(self.entry1.get()) * float(self.entry2.get())/100.0)) * float(self.entry3.get())
       self.paylist.append(float(value))
-      self.translist.append([self.e1.get(),self.e2.get(),self.e3.get(),float(value)])
+      self.translist.append([self.entry1.get(),self.entry2.get(),self.entry3.get(),float(value)])
       tkMessageBox.showinfo( "Total Pay!" , str(value) + " THB\n" +"Total pay : "+str(sum(self.paylist))+" THB\n"+"Now you got "+ str(len(self.paylist))+" Order!")
 
 
@@ -71,7 +71,7 @@ class App:
 
    """ when click 'CHECK TOTAL'(Button)in Main(window) this message box will show to alert all information """
    def showList(self):
-      tkMessageBox.showinfo( "Total Pay!" , "Your Total Pay is"+str(sum(self.paylist)) + " THB\n" + "Your Pay List : " + str(self.paylist)+"\n"+"Now you got "+ str(len(self.paylist))+" Order!" )
+      tkMessageBox.showinfo( "Total Pay!" , "Your Total Pay is "+str(sum(self.paylist)) + " THB\n" + "Your Pay List : " + str(self.paylist)+"\n"+"Now you got "+ str(len(self.paylist))+" Order!" )
 
 
 
