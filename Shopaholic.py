@@ -14,8 +14,8 @@ class App:
    def __init__(self,master):
       master.minsize(width=200, height=250)
 
-      B_NEW = Tkinter.Button(master, text ="NEW", width=30, height=3, font=100, command = self.addTask)
-      B_EDIT = Tkinter.Button(master, text ="EDIT", width=30, height=3, font=100, command = self.editTask)
+      B_NEW = Tkinter.Button(master, text ="NEW ORDER", width=30, height=3, font=100, command = self.addTask)
+      B_EDIT = Tkinter.Button(master, text ="DELETE ORDER", width=30, height=3, font=100, command = self.Delete)
       B_RESULT = Tkinter.Button(master, text ="CHECK TOTAL", width=30, font=100, height=3, command = self.showList)
       B_EXIT = Tkinter.Button(master, text ="EXIT", width=30, height=3, font=100, command = master.destroy)
 
@@ -52,14 +52,16 @@ class App:
    def showResult(self):
       value = (float(self.e1.get()) -(float(self.e1.get()) * float(self.e2.get())/100.0)) * float(self.e3.get())
       self.paylist.append(float(value))
-      self.translist.append([float(value),self.e1.get(),self.e2.get(),self.e3.get()])
+      self.translist.append([self.e1.get(),self.e2.get(),self.e3.get(),float(value)])
       tkMessageBox.showinfo( "Total Pay!" , str(value) + " THB\n" +"Total pay : "+str(sum(self.paylist))+" THB\n"+"Now you got "+ str(len(self.paylist))+" Order!")
       
    def showList(self):
       tkMessageBox.showinfo( "Total Pay!" , str(sum(self.paylist)) + " THB\n" + "Your Pay List : " + str(self.paylist) )
 
   
-   def editTask(self):
+
+   def Delete(self):
+       
       def whichSelected () :
             print "At %s of %d" % (select.curselection(), len(self.translist))
             return int(select.curselection()[0])
@@ -71,14 +73,20 @@ class App:
             setSelect ()
 
       def loadEntry  () :
-            total, price, discount, quantity = self.translist[whichSelected()]
-            totalVar.set(total)
-            priceVar.set(price)
-            discountVar.set(discount)
-            quantityVar.set(quantity)
+            global price, discount, quantity, total
+            price_s, discount_s, quantity_s, total_s = self.translist[whichSelected()]
+            price.delete(0,END)
+            price.insert(0,str(price_s))
+            discount.delete(0,END)
+            discount.insert(0,str(discount_s))
+            quantity.delete(0,END)
+            quantity.insert(0,str(quantity_s))
+            total.delete(0,END)
+            total.insert(0,str(total_s))
             
-      def makeWindow () :
-            global totalVar, priceVar, discountVar,  quantityVar, select
+      def makeWindow():
+            global price, discount, quantity, total
+            global select
             win = Tk()
 
             frame1 = Frame(win)
@@ -101,7 +109,7 @@ class App:
 
             Label(frame1, text="Total").grid(row=3, column=0, sticky=W)
             totalVar= StringVar()
-            total= Entry(frame1, textvariable=totalVar, state = DISABLED)
+            total= Entry(frame1, textvariable=totalVar)
             total.grid(row=3, column=1, sticky=W)
 
             frame2 = Frame(win)       
@@ -134,7 +142,6 @@ class App:
 
       win = makeWindow() 
       setSelect ()
-      win.mainloop()
 
 window = App(master)
 
