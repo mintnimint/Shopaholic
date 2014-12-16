@@ -11,10 +11,17 @@ class App:
    value = 0
    total = 0
    
+<<<<<<< HEAD
    
    def __init__(self,master):
       master.minsize(width=200, height=250)
 
+=======
+   def __init__(self,master):
+      master.minsize(width=200, height=250)
+
+
+>>>>>>> origin/master
       B_NEW = Tkinter.Button(master, text ="NEW", width=30, height=3, font=100, command = self.addTask)
       B_EDIT = Tkinter.Button(master, text ="EDIT", width=30, height=3, font=100, command = self.Delete)
       B_RESULT = Tkinter.Button(master, text ="CHECK TOTAL", width=30, font=100, height=3, command = self.showList)
@@ -55,10 +62,13 @@ class App:
       self.paylist.append(float(value))
       self.translist.append([float(value),self.e1.get(),self.e2.get(),self.e3.get()])
       tkMessageBox.showinfo( "Total Pay!" , str(value) + " THB\n" +"Total pay : "+str(sum(self.paylist))+" THB\n"+"Now you got "+ str(len(self.paylist))+" Order!")
+<<<<<<< HEAD
       
    def showList(self):
       tkMessageBox.showinfo( "Total Pay!" , str(sum(self.paylist)) + " THB\n" + "Your Pay List : " + str(self.paylist) )
 
+=======
+>>>>>>> origin/master
 
 window = App(master)
 
